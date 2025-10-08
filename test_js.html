@@ -39,6 +39,7 @@
   <input type="text" id="nameInput" placeholder="輸入你的名字">
   <script>
     document.getElementById("myButton").addEventListener("click", function() {
+      document.body.style.backgroundColor = "lightblue"
       let userName = document.getElementById("nameInput").value.trim();
       let message = document.getElementById("message");
       if (userName) {
