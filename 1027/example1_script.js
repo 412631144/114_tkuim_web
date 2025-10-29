@@ -13,7 +13,7 @@ form.addEventListener('submit', (event) => {
   }
   const item = document.createElement('li');
   item.className = 'list-group-item d-flex justify-content-between align-items-center';
-  item.innerHTML = `${value} <button class="btn btn-sm btn-outline-danger" data-action="remove">刪除</button>`;
+  item.innerHTML = `${value} <button class="btn btn-sm btn-outline-success me-2" data-action="complete">完成</button> <button class="btn btn-sm btn-outline-danger" data-action="remove">刪除</button>`;
   list.appendChild(item);
   input.value = '';
   input.focus();
@@ -21,11 +21,19 @@ form.addEventListener('submit', (event) => {
 
 list.addEventListener('click', (event) => {
   const target = event.target.closest('[data-action="remove"]');
+  const action = target.dataset.action;
   if (!target) {
     return;
   }
   const item = target.closest('li');
-  if (item) {
+
+
+  if (action === 'remove') {
     item.remove();
+  } else if (action === 'complete') {
+    item.classList.toggle('list-group-item-success'); 
   }
 });
+
+
+
