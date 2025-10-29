@@ -1,10 +1,11 @@
 // example5_script.js
 // 攔截 submit，聚焦第一個錯誤並模擬送出流程
-//案同意隱私按鈕跳出隱私條款定案確定
 
 const form = document.getElementById('full-form');
 const submitBtn = document.getElementById('submitBtn');
 const resetBtn = document.getElementById('resetBtn');
+const Agree = document.getElementById('agree');
+const check = document.getElementById('Check');
 
 function validateAllInputs(formElement) {
   let firstInvalid = null;
@@ -54,3 +55,24 @@ form.addEventListener('input', (event) => {
     target.classList.remove('is-invalid');
   }
 });
+
+
+
+function handleAgreeClick(event) {
+ event.preventDefault();
+
+ if (!Agree.checked) {
+  const agree = confirm(`同意？`);
+
+  if (Agree) {
+   Agree.checked = true;
+  } else {
+   Agree.checked = false;
+  }
+ } else {
+  Agree.checked = false;
+ }
+}
+
+check.addEventListener('click', handleAgreeClick);
+Agree.addEventListener('click', handleAgreeClick);

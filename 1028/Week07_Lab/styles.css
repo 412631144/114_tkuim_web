@@ -1,0 +1,47 @@
+/* 隱藏的錯誤訊息 <p> 標籤 */
+.form-error-msg {
+    color: var(--bs-danger);
+    font-size: 0.875em;
+    min-height: 1.25em; /* 佔據空間，防止版面跳動 */
+    margin-top: 0.25rem;
+}
+
+/* Bootstrap 的 .is-invalid 會讓 input 變紅 */
+/* 我們也讓 .is-invalid 的 "群組" 變紅 (用於興趣) */
+.is-invalid {
+    border-color: var(--bs-danger);
+}
+
+/* 讓 .btn-check 的標籤在群組 .is-invalid 時也顯示紅色 */
+.is-invalid .btn-outline-secondary {
+    border-color: var(--bs-danger);
+    color: var(--bs-danger);
+}
+
+/* 密碼強度條 (進階功能) */
+.strength-bar {
+    height: 6px;
+    background-color: #e9ecef;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.strength-bar-fill {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* 強度顏色 */
+.strength-bar-fill[data-strength="weak"] {
+    width: 33%;
+    background-color: var(--bs-danger);
+}
+.strength-bar-fill[data-strength="medium"] {
+    width: 66%;
+    background-color: var(--bs-warning);
+}
+.strength-bar-fill[data-strength="strong"] {
+    width: 100%;
+    background-color: var(--bs-success);
+}
