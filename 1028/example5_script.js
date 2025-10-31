@@ -5,7 +5,6 @@ const form = document.getElementById('full-form');
 const submitBtn = document.getElementById('submitBtn');
 const resetBtn = document.getElementById('resetBtn');
 const Agree = document.getElementById('agree');
-const check = document.getElementById('Check');
 
 function validateAllInputs(formElement) {
   let firstInvalid = null;
@@ -58,21 +57,9 @@ form.addEventListener('input', (event) => {
 
 
 
-function handleAgreeClick(event) {
- event.preventDefault();
-
- if (!Agree.checked) {
-  const agree = confirm(`同意？`);
-
-  if (Agree) {
-   Agree.checked = true;
-  } else {
-   Agree.checked = false;
+Agree.addEventListener('click', () => {
+  if (Agree.checked) {
+    alert('同意嗎?');
   }
- } else {
-  Agree.checked = false;
- }
-}
+});
 
-check.addEventListener('click', handleAgreeClick);
-Agree.addEventListener('click', handleAgreeClick);
