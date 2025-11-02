@@ -1,0 +1,41 @@
+
+.form-error-msg {
+    color: var(--bs-danger);
+    min-height: 1.25em; 
+    margin-top: 0.25rem;
+}
+
+.is-invalid {
+    border-color: var(--bs-danger);
+}
+
+.is-invalid .btn-outline-secondary {
+    border-color: var(--bs-danger);
+    color: var(--bs-danger);
+}
+
+.strength-bar {
+    height: 6px;
+    background-color: #e9ecef;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.strength-bar-fill {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.strength-bar-fill[data-strength="weak"] {
+    width: 33%;
+    background-color: var(--bs-danger);
+}
+.strength-bar-fill[data-strength="medium"] {
+    width: 66%;
+    background-color: var(--bs-warning);
+}
+.strength-bar-fill[data-strength="strong"] {
+    width: 100%;
+    background-color: var(--bs-success);
+}
