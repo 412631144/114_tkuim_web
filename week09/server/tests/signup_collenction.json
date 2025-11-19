@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "ee7c6b3c-97bd-4b27-91e7-3074c4bcf497",
+		"name": "Week09 Signup",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50192821",
+		"_collection_link": "https://m65375543-4526781.postman.co/workspace/MAC's-Workspace~dfb752a3-36ae-4b71-83c3-d67d9288f870/collection/50192821-ee7c6b3c-97bd-4b27-91e7-3074c4bcf497?action=share&source=collection_link&creator=50192821"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"測試同學\",\r\n  \"email\": \"test@example.com\",\r\n  \"phone\": \"0912345678\",\r\n  \"password\": \"abc12345\",\r\n  \"confirmPassword\": \"abc12345\",\r\n  \"interests\": [\"前端\", \"後端\"],\r\n  \"terms\": true\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
