@@ -36,3 +36,7 @@ npm run dev
 
 使用 VS Code REST Client
 開啟 tests/api.http 檔案(測試腳本)
+
+## 測試截圖
+
+<img src="截圖/mongo Compass 確認.png" width="600" alt="API 測試結果">
