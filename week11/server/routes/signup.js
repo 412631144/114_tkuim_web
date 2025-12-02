@@ -4,7 +4,8 @@ import {
   createParticipant,
   listParticipants,
   updateParticipant,
-  deleteParticipant
+  deleteParticipant,
+  findParticipantByEmail
 } from '../repositories/participants.js';
 
 const router = express.Router();
@@ -15,6 +16,11 @@ router.post('/', async (req, res, next) => {
     if (!name || !email || !phone) {
       return res.status(400).json({ error: '缺少必要欄位' });
     }
+    const existing = await findParticipantByEmail(email);
+    if (existing) {
+      // 409 Conflict 代表資源衝突 (重複)
+      return res.status(409).json({ error: '此 Email 已經報名過了' });
+    }
     const id = await createParticipant({ name, email, phone });
     res.status(201).json({ id });
   } catch (error) {
@@ -24,8 +30,19 @@ router.post('/', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const participants = await listParticipants();
-    res.json({ items: participants, total: participants.length });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const { items, total } = await listParticipants(page, limit);
+    const totalPages = Math.ceil(total / limit);
+    res.json({
+      data: items,
+      pagination: {
+        total,
+        currentPage: page,
+        perPage: limit,
+        totalPages
+      }
+    });
   } catch (error) {
     next(error);
   }
