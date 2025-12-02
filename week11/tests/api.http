@@ -1,6 +1,7 @@
-@last_id = 123
 
 ### 建立報名
+
+# @name createReq
 POST http://localhost:3001/api/signup
 Content-Type: application/json
 
@@ -14,9 +15,13 @@ Content-Type: application/json
 GET http://localhost:3001/api/signup
 
 ### 更新
-PATCH http://localhost:3001/api/signup/{{last_id}}
+PATCH http://localhost:3001/api/signup/{{createReq.response.body.id}}
 Content-Type: application/json
 
 {
   "phone": "0911000111"
 }
+
+
+### 刪除
+DELETE http://localhost:3001/api/signup/{{createReq.response.body.id}}
