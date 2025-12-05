@@ -5,7 +5,6 @@ import { getDB } from '../db.js';
 const collection = () => getDB().collection('participants');
 
 export async function findParticipantByEmail(email) {
-  // 使用 findOne 尋找是否有符合 email 的資料
   return await collection().findOne({ email });
 }
 
