@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versus | 萬物皆可比對</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Outfit:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="logo">
+            <a href="#" onclick="showView('landing')">versus</a>
+        </div>
+        <nav class="main-nav">
+            <div class="nav-item dropdown">
+                <span>類別 <i class="fas fa-chevron-down"></i></span>
+            </div>
+            <a href="#" onclick="scrollToSection('grid-section'); return false;" class="nav-link">移動電話</a>
+            <a href="#" onclick="scrollToSection('grid-section'); return false;" class="nav-link">顯示卡</a>
+            <a href="#" onclick="scrollToSection('grid-section'); return false;" class="nav-link">中央處理器</a>
+            <a href="#" onclick="scrollToSection('grid-section'); return false;" class="nav-link">遊戲控制器 <span
+                    class="badge">新</span></a>
+        </nav>
+        <div class="user-actions">
+            <span class="lang-switch">CN</span>
+            <div class="user-icon"><i class="fas fa-user"></i></div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home View (Landing + Grid) -->
+        <div id="home-view" class="view active">
+            <section id="hero-section">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h1 class="hero-title">萬物皆可比對</h1>
+                        <p class="hero-subtitle">
+                            <a href="#" onclick="scrollToSection('grid-section'); return false;">移動電話</a>、
+                            <a href="#" onclick="scrollToSection('grid-section'); return false;">城市</a>、
+                            <a href="#" onclick="scrollToSection('grid-section'); return false;">顯示卡</a>、
+                            <a href="#" onclick="scrollToSection('grid-section'); return false;">大學</a>及<a href="#"
+                                onclick="scrollToSection('grid-section'); return false;">其他</a>
+                        </p>
+
+                        <div class="search-container">
+                            <div class="search-box">
+                                <input type="text" placeholder="在此處輸入以開始比較">
+                            </div>
+                            <button class="btn-compare" onclick="showView('comparison')">比較</button>
+                        </div>
+                    </div>
+                    <div class="hero-bg-glow"></div>
+                </div>
+            </section>
+
+            <section id="grid-section">
+                <div class="container">
+                    <!-- Ad banner removed -->
+
+                    <div class="category-grid">
+                        <!-- Article Card -->
+                        <div class="card article-card" data-title="WhatsApp 與 Signal 和 Telegram"
+                            data-content="WhatsApp, Signal 和 Telegram 都是強大的通訊軟體，各有優缺點。WhatsApp 用戶基數大，Signal 隱私性最高，Telegram 功能最豐富。">
+                            <div class="card-image-wrapper">
+                                <img src="https://tse2.mm.bing.net/th?q=WhatsApp%20Signal%20Telegram%20Comparison%20Logos&w=600&h=300&c=7&rs=1&p=0"
+                                    alt="WhatsApp Signal Telegram"
+                                    style="width:100%; height:100%; object-fit: contain;">
+                            </div>
+                            <div class="card-content">
+                                <h3>WhatsApp 與 Signal 和 Telegram: 你究竟應該使用哪個? 這真的很重要嗎?</h3>
+                            </div>
+                        </div>
+
+                        <!-- Product Card -->
+                        <div class="card product-card" data-title="Fairphone Fairbuds XL"
+                            data-content="2025年新款 Fairphone Fairbuds XL，強調可維修性與環保材質，音質表現優異。">
+                            <div class="card-image-wrapper">
+                                <img src="https://tse2.mm.bing.net/th?q=Fairphone%20Fairbuds%20XL%20Headphones&w=400&h=400&c=7&rs=1&p=0"
+                                    alt="Fairphone Fairbuds XL">
+                            </div>
+                            <div class="card-content">
+                                <h2>Fairphone Fairbuds XL (2025)</h2>
+                                <p class="sub-text">新產品 / Fairphone Fairbuds XL (2025)</p>
+                            </div>
+                        </div>
+
+                        <!-- CPU Card -->
+                        <div class="card product-card" data-title="CPU散熱器"
+                            data-content="比較各品牌 CPU 散熱器效能，包含 Arctic, Noctua, Cooler Master 等等。">
+                            <div class="card-image-wrapper">
+                                <img src="https://tse2.mm.bing.net/th?q=Arctic%20Liquid%20Freezer%20III%20CPU%20Cooler&w=400&h=400&c=7&rs=1&p=0"
+                                    alt="CPU Cooler">
+                            </div>
+                            <div class="card-content">
+                                <h2>CPU散熱器</h2>
+                                <p class="sub-text">新類別 / 比較CPU散熱器</p>
+                            </div>
+                        </div>
+
+                        <!-- Points Card -->
+                        <div class="card score-card" data-title="Versus 評分系統"
+                            data-content="我們的評分系統基於客觀數據分析，綜合考慮性能、價格、使用者評價等多個維度。">
+                            <div class="score-circle">
+                                <span class="score-text">71</span>
+                                <span class="score-label">Points</span>
+                            </div>
+                            <div class="card-content">
+                                <h2>在 Versus 內部</h2>
+                                <p class="sub-text">我們如何計算 Versus 得分</p>
+                            </div>
+                        </div>
+
+                        <!-- More cards for visual balance -->
+                        <div class="card product-card" data-title="入耳式監聽耳機" data-content="專業級入耳式監聽耳機評比，適合發燒友與音樂製作人。">
+                            <div class="card-image-wrapper">
+                                <img src="https://tse2.mm.bing.net/th?q=IEM%20In-Ear%20Monitors%20White&w=400&h=400&c=7&rs=1&p=0"
+                                    alt="Earbuds">
+                            </div>
+                            <div class="card-content">
+                                <h2>入耳式監聽耳機</h2>
+                                <p class="sub-text">新類別 / 比較入耳式監聽耳機</p>
+                            </div>
+                        </div>
+
+                        <div class="card product-card" data-title="Leica M EV1"
+                            data-content="Leica M EV1 結合了經典設計與現代電子觀景窗技術。">
+                            <div class="card-image-wrapper">
+                                <img src="https://tse2.mm.bing.net/th?q=Leica%20M11%20Camera%20Front&w=400&h=400&c=7&rs=1&p=0"
+                                    alt="Leica Camera">
+                            </div>
+                            <div class="card-content">
+                                <h2>Leica M EV1</h2>
+                                <p class="sub-text">新產品 / Leica M EV1</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Comparison View -->
+        <section id="comparison-view" class="view">
+            <div class="comparison-header-bar">
+                <div class="container breadcrumbs">
+                    <span>Home</span> > <span>無線耳機對比</span> > <span>Apple AirPods 4 ANC vs Samsung Galaxy Buds3
+                        Pro</span>
+                </div>
+            </div>
+
+            <div class="container comparison-main">
+                <div class="face-off">
+                    <!-- Left Product -->
+                    <div class="product-side left">
+                        <div class="score-badge left-score">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" class="bg-ring"></circle>
+                                <circle cx="50" cy="50" r="45" class="progress-ring"
+                                    style="stroke-dasharray: 283; stroke-dashoffset: 76;"></circle> <!-- 73% roughly -->
+                            </svg>
+                            <span class="score-num">73<small>分</small></span>
+                        </div>
+                        <h2 class="product-name">Apple AirPods 4 ANC</h2>
+                        <div class="product-image">
+                            <img src="https://tse2.mm.bing.net/th?q=Apple%20AirPods%204%20ANC%20White%20Background&w=400&h=400&c=7&rs=1&p=0"
+                                alt="AirPods 4">
+                        </div>
+                        <div class="product-pills">
+                            <span class="vs-badge">VS</span>
+                        </div>
+                        <div class="price-tag">$94 <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="amazon"
+                                class="vendor-logo"></div>
+                    </div>
+
+                    <!-- Right Product -->
+                    <div class="product-side right">
+                        <div class="score-badge right-score">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" class="bg-ring"></circle>
+                                <circle cx="50" cy="50" r="45" class="progress-ring"
+                                    style="stroke-dasharray: 283; stroke-dashoffset: 0; stroke: #3b82f6;"></circle>
+                                <!-- 100% -->
+                            </svg>
+                            <span class="score-num">100<small>分</small></span>
+                        </div>
+                        <h2 class="product-name">Samsung Galaxy Buds3 Pro</h2>
+                        <div class="product-image">
+                            <img src="https://tse2.mm.bing.net/th?q=Samsung%20Galaxy%20Buds3%20Pro%20White%20Background&w=400&h=400&c=7&rs=1&p=0"
+                                alt="Galaxy Buds3">
+                        </div>
+
+                        <div class="price-tag">$110 <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="amazon"
+                                class="vendor-logo"></div>
+                        <div class="winner-badge">對比勝出方</div>
+                    </div>
+                </div>
+
+                <div class="comparison-title-block">
+                    <p class="comparison-meta">對比中的 74 個事實</p>
+                    <h1>Apple AirPods 4 ANC vs <u>Samsung Galaxy Buds3 Pro</u></h1>
+                </div>
+            </div>
+
+            <div class="sticky-comparison-bar">
+                <div class="container flex-bar">
+                    <span class="prod-name">Apple AirPods 4 ANC</span>
+                    <span class="prod-name active">Samsung Galaxy Buds3 Pro</span>
+                    <div class="action-right">
+                        <button class="btn-vs-action">VS | 選擇了2個項目 <i class="fas fa-chevron-up"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Structure -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">標題</h2>
+            <div id="modal-body">內容區</div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal-overlay" class="modal-overlay">
+        <div class="modal-content login-modal">
+            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
+            <h2>歡迎回來</h2>
+            <form class="login-form" onsubmit="event.preventDefault(); closeLoginModal();">
+                <div class="form-group">
+                    <label>電子郵件</label>
+                    <input type="email" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>密碼</label>
+                    <input type="password" placeholder="請輸入密碼" required>
+                </div>
+                <button type="submit" class="btn-login">登入</button>
+                <div class="login-footer">
+                    還沒有帳號? <a href="#">立即註冊</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
