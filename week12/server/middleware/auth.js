@@ -1,4 +1,7 @@
+// Week12/server/middleware/auth.js
+
 import jwt from 'jsonwebtoken';
+
 
 export function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
