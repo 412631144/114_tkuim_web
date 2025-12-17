@@ -1,0 +1,59 @@
+// week12/tests/api.http
+
+### 1. 註冊一般學員
+POST http://localhost:3001/auth/signup
+Content-Type: application/json
+
+{
+  "email": "student@example.com",
+  "password": "student123",
+  "role": "student"
+}
+
+### 2. 註冊準管理員 (目前還是 student)
+POST http://localhost:3001/auth/signup
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+
+### 2. 登入 (取得 Token)
+# @name loginReq
+POST http://localhost:3001/auth/login
+Content-Type: application/json
+
+{
+  "email": "student1@example.com",
+  "password": "mypassword123"
+}
+
+### (變數設定：從上方回應抓取 Token)
+@authToken = {{loginReq.response.body.token}}
+
+
+### 3. 建立報名 (帶入 Token)
+# @name createReq
+POST http://localhost:3001/api/signup
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "王小明",
+  "email": "student1@example.com",
+  "phone": "0911222333"
+}
+
+### 4. 取得清單 (只能看到自己的)
+GET http://localhost:3001/api/signup
+Authorization: Bearer {{authToken}}
+
+
+### 5. 測試權限：嘗試不帶 Token 讀取 (預期回應 401)
+GET http://localhost:3001/api/signup
+
+
+### 6. 刪除自己的報名資料
+DELETE http://localhost:3001/api/signup/{{createReq.response.body._id}}
+Authorization: Bearer {{authToken}}
