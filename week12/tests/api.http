@@ -1,59 +1,86 @@
-// week12/tests/api.http
+@baseUrl = http://localhost:3001
 
-### 1. 註冊一般學員
-POST http://localhost:3001/auth/signup
+# ==========================================
+# 1. [準備] 註冊帳號
+# ==========================================
+
+### 1-1. 註冊「一般學員」 (Student)
+# @name signupStudent
+POST {{baseUrl}}/auth/signup
 Content-Type: application/json
 
 {
-  "email": "student@example.com",
-  "password": "student123",
+  "email": "student@test.com",
+  "password": "123",
   "role": "student"
 }
 
-### 2. 註冊準管理員 (目前還是 student)
-POST http://localhost:3001/auth/signup
+### 1-2. 註冊「管理員」 (Admin)
+# 注意：你的 signup 程式碼需允許接收 role 參數，否則預設會是 student
+POST {{baseUrl}}/auth/signup
 Content-Type: application/json
 
 {
-  "email": "admin@example.com",
-  "password": "admin123"
+  "email": "admin@test.com",
+  "password": "123",
+  "role": "admin"
 }
 
-### 2. 登入 (取得 Token)
-# @name loginReq
-POST http://localhost:3001/auth/login
+# ==========================================
+# 2. [情境 A] 一般學員的操作測試
+# ==========================================
+
+### 2-1. 學員登入 (取得 Token)
+# @name loginStudent
+POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "email": "student1@example.com",
-  "password": "mypassword123"
+  "email": "student@test.com",
+  "password": "123"
 }
 
-### (變數設定：從上方回應抓取 Token)
-@authToken = {{loginReq.response.body.token}}
+### 變數設定：自動抓取學員 Token
+@studentToken = {{loginStudent.response.body.token}}
 
-
-### 3. 建立報名 (帶入 Token)
-# @name createReq
-POST http://localhost:3001/api/signup
+### 2-2. 學員新增報名資料
+# @name createByStudent
+POST {{baseUrl}}/api/signup
 Content-Type: application/json
-Authorization: Bearer {{authToken}}
+Authorization: Bearer {{studentToken}}
 
 {
-  "name": "王小明",
-  "email": "student1@example.com",
-  "phone": "0911222333"
+  "name": "我是學員",
+  "email": "student@test.com",
+  "phone": "0912345678"
 }
 
-### 4. 取得清單 (只能看到自己的)
-GET http://localhost:3001/api/signup
-Authorization: Bearer {{authToken}}
+### 2-3. 學員查詢資料 (應該只看得到自己剛剛建的那 1 筆)
+GET {{baseUrl}}/api/signup
+Authorization: Bearer {{studentToken}}
 
+# ==========================================
+# 3. [情境 B] 管理員的操作測試
+# ==========================================
 
-### 5. 測試權限：嘗試不帶 Token 讀取 (預期回應 401)
-GET http://localhost:3001/api/signup
+### 3-1. 管理員登入
+# @name loginAdmin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
 
+{
+  "email": "admin@test.com",
+  "password": "123"
+}
 
-### 6. 刪除自己的報名資料
-DELETE http://localhost:3001/api/signup/{{createReq.response.body._id}}
-Authorization: Bearer {{authToken}}
+### 變數設定：自動抓取管理員 Token
+@adminToken = {{loginAdmin.response.body.token}}
+
+### 3-2. 管理員查詢資料 (應該要看到學員建的資料，共 1 筆以上)
+GET {{baseUrl}}/api/signup
+Authorization: Bearer {{adminToken}}
+
+### 3-3. 管理員刪除學員的資料 (測試權限)
+# 注意：這裡的 ID 是來自上面 2-2 學員新增的回傳 ID
+DELETE {{baseUrl}}/api/signup/{{createByStudent.response.body.insertedId}}
+Authorization: Bearer {{adminToken}}
