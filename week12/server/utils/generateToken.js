@@ -1,4 +1,3 @@
-// server/utils/generateToken.js
 import jwt from 'jsonwebtoken';
 
 const EXPIRES_IN = '2h';
@@ -6,7 +5,7 @@ const EXPIRES_IN = '2h';
 export function generateToken(user) {
   return jwt.sign(
     {
-      sub: user._id?.toString?.() ?? user.id, // 相容 _id 或 id
+      sub: user._id?.toString?.() ?? user.id,
       email: user.email,
       role: user.role
     },

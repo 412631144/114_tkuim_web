@@ -1,28 +1,32 @@
-// server/db.js
+import 'dotenv/config';            
 import { MongoClient } from 'mongodb';
-import dotenv from 'dotenv';
-dotenv.config(); // 確保讀得到 .env
 
-const url = process.env.MONGO_URI;
-const client = new MongoClient(url);
+const uri = process.env.MONGODB_URI;
 
-let db = null;
+if (!uri) {
+  throw new Error('MONGODB_URI 未設定，請確認 .env 檔案內容');
+}
+
+const client = new MongoClient(uri);
+let db;
 
 export async function connectDB() {
-  try {
-    await client.connect();
-    console.log('成功連線到 MongoDB');
-    db = client.db(); // 使用 URI 中指定的 database (week12)
-    return db;
-  } catch (err) {
-    console.error('MongoDB 連線失敗:', err);
-    process.exit(1);
-  }
+  if (db) return db;
+  await client.connect();
+  db = client.db(); 
+  console.log('[DB] Connected to MongoDB (week12)');
+  return db;
 }
 
-export function getCollection(collectionName) {
+export function getCollection(name) {
   if (!db) {
-    throw new Error('資料庫尚未連線');
+    throw new Error('Database not initialized, 請先呼叫 connectDB()');
   }
-  return db.collection(collectionName);
+  return db.collection(name);
 }
+
+process.on('SIGINT', async () => {
+  await client.close();
+  console.log('\n[DB] Connection closed');
+  process.exit(0);
+});

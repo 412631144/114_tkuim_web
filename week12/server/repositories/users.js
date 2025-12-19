@@ -1,4 +1,4 @@
-// Week12/server/repositories/users.js
+
 import { getCollection } from '../db.js';
 
 export async function findUserByEmail(email) {
