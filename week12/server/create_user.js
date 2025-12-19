@@ -1,5 +1,6 @@
+import 'dotenv/config';
 import bcrypt from 'bcrypt';
-import { connectDB } from '../db.js';
+import { connectDB } from './db.js';
 
 const [,, email, password] = process.argv;
 

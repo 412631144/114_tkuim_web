@@ -1,90 +1,72 @@
-### 變數定義
-@baseUrl = http://localhost:3002
-@contentType = application/json
+@baseUrl = http://localhost:3002/api
+@email_student = student@example.com
+@password_student = 123
+@email_admin = admin@example.com
+@password_admin = week12-pass
 
-# ==========================================================
-# ① 未登入請求 → 預期被拒絕（401 Unauthorized）
-# ==========================================================
-GET {{baseUrl}}/api/signup
-Accept: {{contentType}}
-
-# 說明：未攜帶 Authorization Header，authMiddleware 應回傳 401。
-
-
-# ==========================================================
-# ② 帳號準備與登入 (取得 Token) 
-# ==========================================================
-
-### 2-1. 註冊學員 (確保帳號存在)
-POST {{baseUrl}}/auth/signup
-Content-Type: {{contentType}}
+### 1. 未登入被拒 (Unauthorized)
+POST {{baseUrl}}/participants
+Content-Type: application/json
 
 {
-  "email": "student@example.com",
-  "password": "student123",
-  "role": "student"
+    "name": "Test Unauth",
+    "phone": "0912345678"
 }
 
-### 2-2. 學員登入 → 取得 Token (200 OK)
-# @name studentLogin
+### 2. 登入成功 (Login Success - Student)
+# @name loginStudent
 POST {{baseUrl}}/auth/login
-Content-Type: {{contentType}}
+Content-Type: application/json
 
 {
-  "email": "student@example.com",
-  "password": "student123"
+    "email": "{{email_student}}",
+    "password": "{{password_student}}"
 }
 
-### 儲存學員 Token 變數
-@studentToken = {{studentLogin.response.body.token}}
+@tokenStudent = {{loginStudent.response.body.token}}
 
-
-### 2-3. 管理員登入 → 取得 Token (200 OK)
-# @name adminLogin
+### 3. 登入成功 (Login Success - Admin)
+# @name loginAdmin
 POST {{baseUrl}}/auth/login
-Content-Type: {{contentType}}
+Content-Type: application/json
 
 {
-  "email": "admin@example.com",
-  "password": "adminpassword"
+    "email": "{{email_admin}}",
+    "password": "{{password_admin}}"
 }
 
-### 儲存管理員 Token 變數
-@adminToken = {{adminLogin.response.body.token}}
+@tokenAdmin = {{loginAdmin.response.body.token}}
 
-
-# ==========================================================
-# ③ 建立測試資料 (由學員建立)
-# ==========================================================
-# @name createRecord
-POST {{baseUrl}}/api/signup
-Content-Type: {{contentType}}
-Authorization: Bearer {{studentToken}}
+### 4. Admin 建立資料 (為了測試權限不足)
+# @name createAdmin
+POST {{baseUrl}}/participants
+Content-Type: application/json
+Authorization: Bearer {{tokenAdmin}}
 
 {
-  "name": "測試資料",
-  "email": "test@example.com",
-  "phone": "0900111222"
+    "name": "Admin Data",
+    "phone": "0900000000"
 }
 
-### 取得該筆資料 ID
-@targetId = {{createRecord.response.body._id}}
+@id_admin_data = {{createAdmin.response.body._id}}
 
+### 5. 權限不足 (Forbidden - Student 嘗試刪除 Admin 的資料)
+DELETE {{baseUrl}}/participants/{{id_admin_data}}
+Authorization: Bearer {{tokenStudent}}
 
-# ==========================================================
-# ④ 權限不足操作 → 預期被拒絕（403 Forbidden）
-# ==========================================================
-### 測試情境：學員嘗試刪除不屬於自己的資料 (或是系統限制只有 Admin 可刪除)
-DELETE {{baseUrl}}/api/signup/{{targetId}}
-Authorization: Bearer {{studentToken}}
+### 6. Student 建立資料 (為了測試刪除成功)
+# @name createStudent
+POST {{baseUrl}}/participants
+Content-Type: application/json
+Authorization: Bearer {{tokenStudent}}
 
-# 說明：若 signup.js 邏輯設定只有擁有者或管理員可刪除，則非法操作應回傳 403。
+{
+    "name": "Student Data",
+    "phone": "0988888888"
+}
 
+@id_student_data = {{createStudent.response.body._id}}
 
-# ==========================================================
-# ⑤ 管理者刪除資料 → 預期成功（200 OK）
-# ==========================================================
-DELETE {{baseUrl}}/api/signup/{{targetId}}
-Authorization: Bearer {{adminToken}}
-
-# 說明：管理者具備最高權限，可跨過 ownerId 限制刪除資料。
+### 7. 刪除成功 (Delete Success - Student 刪除自己的資料)
+DELETE {{baseUrl}}/participants/{{id_student_data}}
+Authorization: Bearer {{tokenStudent}}

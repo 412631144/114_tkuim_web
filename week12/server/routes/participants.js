@@ -1,3 +1,4 @@
+// routes/participants.js
 import express from 'express';
 import { getCollection } from '../db.js';
 import { ObjectId } from 'mongodb';

@@ -25,7 +25,7 @@ router.post('/login', async (req, res, next) => {
       return res.status(401).json({ error: '帳號或密碼錯誤' });
     }
 
-    console.log('👉 3. [Hash Check] DB Hash:', user.passwordHash); 
+    console.log('3. [Hash Check] DB Hash:', user.passwordHash); 
 
     const ok = await bcrypt.compare(password, user.passwordHash);
 
