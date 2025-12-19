@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <title>Week12 Participants</title>
+</head>
+<body>
+  <h2>登入</h2>
+  <input id="email" placeholder="email">
+  <input id="password" type="password" placeholder="password">
+  <button onclick="login()">登入</button>
+
+  <hr>
+
+  <h3>目前使用者</h3>
+  <div id="userInfo">尚未登入</div>
+  <button onclick="logout()">登出</button>
+
+  <hr>
+
+  <h3>新增參加者</h3>
+  <input id="name" placeholder="姓名">
+  <input id="phone" placeholder="電話">
+  <button onclick="createParticipant()">送出</button>
+
+  <hr>
+
+  <h3>參加者清單</h3>
+  <ul id="list"></ul>
+
+  <script src="script.js"></script>
+</body>
+</html>
